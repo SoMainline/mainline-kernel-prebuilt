@@ -1,5 +1,9 @@
 set -e
 
+export USE_CCACHE=1
+export CCACHE_DIR="$HOME/.aosp-ccache"
+export CCACHE_COMPRESS=1
+
 if [ -z "$ANDROID_ROOT" ]; then
     ANDROID_ROOT="`realpath ../../../`"
     echo "WARNING: Guessing Android root at: $ANDROID_ROOT"
@@ -35,7 +39,7 @@ ${build} defconfig
 
 echo "The build may take up to 10 minutes. Please be patient ..."
 echo "Building new kernel image ..."
-${build} CROSS_COMPILE=$cross_compile Image.gz dtbs
+${build} CROSS_COMPILE="/usr/bin/ccache $cross_compile" Image.gz dtbs
 
 echo "Copying new kernel image ..."
 cp $kernel_out/arch/arm64/boot/Image.gz $kernel_top/common-kernel/Image.gz
