@@ -27,7 +27,9 @@ if [ ! -d $kernel_out ] ; then
 fi
 
 # Build command
-build="make O=$kernel_out ARCH=arm64 -j$(nproc)"
+build="make O=$kernel_out ARCH=arm64 -j$(nproc) CROSS_COMPILE=$cross_compile"
+
+echo "$build"
 
 echo "================================================="
 echo "Building defconfig ..."
@@ -35,7 +37,7 @@ ${build} defconfig
 
 echo "The build may take up to 10 minutes. Please be patient ..."
 echo "Building new kernel image ..."
-${build} CROSS_COMPILE=$cross_compile Image.gz dtbs
+${build} Image.gz dtbs
 
 echo "Copying new kernel image ..."
 cp $kernel_out/arch/arm64/boot/Image.gz $kernel_top/common-kernel/Image.gz
