@@ -21,6 +21,8 @@ ifeq ($(BUILD_KERNEL),false)
 platform := $(TARGET_BOARD_PLATFORM)
 ifeq ($(SOMC_PLATFORM),loire)
 	platform := msm8956
+else ifeq ($(SOMC_PLATFORM),nile)
+	platform := sdm630
 endif
 
 local_kernel := $(KERNEL_PATH)/common-kernel/Image.gz
