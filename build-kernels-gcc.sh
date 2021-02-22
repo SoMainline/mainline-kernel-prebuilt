@@ -8,9 +8,6 @@ fi
 kernel_top=$ANDROID_ROOT/kernel/mainline/
 kernel_out=$ANDROID_ROOT/out/mainline-kernel
 
-# Cross Compiler
-cross_compile=${cross_compile:-$ANDROID_ROOT/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-}
-
 cd $kernel_top/kernel
 
 echo "================================================="
@@ -27,7 +24,7 @@ if [ ! -d $kernel_out ] ; then
 fi
 
 # Build command
-build="make O=$kernel_out ARCH=arm64 -j$(nproc) CROSS_COMPILE=$cross_compile"
+build="make O=$kernel_out ARCH=arm64 -j$(nproc) CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-none-eabi-"
 
 echo "$build"
 
