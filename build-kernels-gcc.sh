@@ -6,7 +6,7 @@ if [ -z "$ANDROID_ROOT" ]; then
 fi
 
 kernel_top=$ANDROID_ROOT/kernel/mainline/
-kernel_out=$ANDROID_ROOT/out/mainline-kernel
+kernel_out=$ANDROID_ROOT/out/kernel-mainline
 
 cd $kernel_top/kernel
 
