@@ -19,14 +19,11 @@ BUILD_KERNEL := false
 ifeq ($(BUILD_KERNEL),false)
 
 platform := $(TARGET_BOARD_PLATFORM)
-ifeq ($(SOMC_PLATFORM),loire)
-	platform := msm8956
-else ifeq ($(SOMC_PLATFORM),nile)
-	platform := sdm630
-endif
+
+TARGET_PLATFORM ?= $(SOMC_PLATFORM)
 
 local_kernel := $(KERNEL_PATH)/common-kernel/Image.gz
-local_dtb    := $(KERNEL_PATH)/common-kernel/$(platform)-sony-xperia-$(SOMC_PLATFORM)-$(TARGET_DEVICE).dtb
+local_dtb    := $(KERNEL_PATH)/common-kernel/$(platform)-sony-xperia-$(TARGET_PLATFORM)-$(TARGET_DEVICE:-mainline=).dtb
 
 # PRODUCT_OUT is not defined yet:
 out/target/product/$(TARGET_DEVICE)/kernel: $(local_kernel) $(local_dtb)
